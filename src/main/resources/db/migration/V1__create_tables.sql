@@ -1,5 +1,8 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+
 create table users (
-  id varchar(255) primary key,
+  id varchar(255) primary key DEFAULT uuid_generate_v4(),
   username varchar(255) UNIQUE,
   password varchar(255),
   email varchar(255) UNIQUE,
@@ -8,13 +11,13 @@ create table users (
 );
 
 create table articles (
-  id varchar(255) primary key,
+  id varchar(255) primary key DEFAULT uuid_generate_v4(),
   user_id varchar(255),
   slug varchar(255) UNIQUE,
   title varchar(255),
   description text,
   body text,
-  created_at TIMESTAMP NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -30,7 +33,7 @@ create table follows (
 );
 
 create table tags (
-  id varchar(255) primary key,
+  id varchar(255) primary key DEFAULT uuid_generate_v4(),
   name varchar(255) not null
 );
 
@@ -40,10 +43,10 @@ create table article_tags (
 );
 
 create table comments (
-  id varchar(255) primary key,
+  id varchar(255) primary key DEFAULT uuid_generate_v4(),
   body text,
   article_id varchar(255),
   user_id varchar(255),
-  created_at TIMESTAMP NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
